@@ -12,18 +12,20 @@ class event implements Comparable<event> {
     this.y3=y1_1;
     this.x4=x3;
     this.y4=y2_1;
-    this.tags=_tags;
+    tags=_tags;
   }
+
 
   @Override 
     int compareTo(event other) {
     return this.x1 - other.x1;
   }
-
+ 
 
   //StringList getStr() {
   //return str;
   //}
+
 
 
   //class tagComparator implements Comparator {

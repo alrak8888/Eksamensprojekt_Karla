@@ -2,8 +2,8 @@
 //int zoom = 400;
 //final static byte increase = 2;
 
-import java.util.Comparator;
-import java.util.Collections;
+import java.util.*;
+
 
 int tidslinjeX1 = 1400;
 int tidslinjeY = 450;
@@ -11,8 +11,7 @@ int tidslinjeX2 = 200;
 int y1_1=450;
 int y2_1 = 400;
 PFont myFont;
-
-
+int i;
 
 ArrayList<event> events;
 
@@ -36,6 +35,7 @@ void setup() {
   events.add(new event(new StringList("Politik"), 1933, 1933));//Kanslergade
   events.add(new event(new StringList("Politik"), 1973, 1973));//DKEF
 
+
   println ("Before sorting");
   for (event e : events) {
     println(e.x1);
@@ -48,7 +48,7 @@ void setup() {
   for (event e : events) {
     println(e.x1);
   }
-  
+
   int total = events.size();
   println(total);
   println(events);
