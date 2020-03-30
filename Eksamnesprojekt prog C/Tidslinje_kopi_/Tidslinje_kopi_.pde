@@ -15,6 +15,10 @@ int i;
 
 ArrayList<event> events;
 
+StringDict tags;
+
+//HashMap<String, Integer> events = new HashMap <String, Integer>();
+
 void setup() {
   size(1600, 600); //(1600, 900)
   smooth();
@@ -27,13 +31,20 @@ void setup() {
   //currentColor = baseColor;
   //rectColor = color(255);
 
+
+  tags = new StringDict();
   events = new ArrayList<event>();
-  events.add(new event(new StringList("Krig", "Nazisme"), 1940, 1945));//andenVK
-  events.add(new event(new StringList("Krig"), 1914, 1918));//firstVK
-  events.add(new event(new StringList("Terror", "USA"), 2001, 2001));//twintowers
-  events.add(new event(new StringList("Kvinder", "Stemmeret"), 1915, 1915));//kvindeStem
-  events.add(new event(new StringList("Politik"), 1933, 1933));//Kanslergade
-  events.add(new event(new StringList("Politik"), 1973, 1973));//DKEF
+events.add(new event("krig", "Nazisme", 1940, 1945);
+
+
+  //events.add (new event(tags.set("Krig", "Verden")
+    //, 1940, 1945));  
+  // (new StringList("Krig", "Nazisme"), 1940, 1945));//andenVK
+  //events.add(new event(new StringList("Krig"), 1914, 1918));//firstVK
+  //events.add(new event(new StringList("Terror", "USA"), 2001, 2001));//twintowers
+  //events.add(new event(new StringList("Kvinder", "Stemmeret"), 1915, 1915));//kvindeStem
+  //events.add(new event(new StringList("Politik"), 1933, 1933));//Kanslergade
+  //events.add(new event(new StringList("Politik"), 1973, 1973));//DKEF
 
 
   println ("Before sorting");

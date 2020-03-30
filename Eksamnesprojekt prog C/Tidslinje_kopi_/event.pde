@@ -1,9 +1,9 @@
-class event implements Comparable<event> {
-  StringList tags;
+class event {
+StringDict tag1;
   int x1, y1, x2, y2, x3, y3, x4, y4;
 
 
-  event (StringList _tags, int x, int z) {
+  event (StringDict _tag1, StringDict _tag2, int x, int z) {
     this.x1=x=(x-1901)*10+200;
     this.y1=y1_1;
     this.x2=x1;
@@ -12,14 +12,15 @@ class event implements Comparable<event> {
     this.y3=y1_1;
     this.x4=x3;
     this.y4=y2_1;
-    tags=_tags;
+    tag1=_tag1;
   }
 
 
-  @Override 
-    int compareTo(event other) {
-    return this.x1 - other.x1;
-  }
+  //@Override 
+   // int compareTo(event other) {
+   // return this.x1 - other.x1;
+  //}
+ 
  
 
   //StringList getStr() {

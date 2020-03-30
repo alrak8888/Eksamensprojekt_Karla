@@ -2,8 +2,7 @@
 //int zoom = 400;
 //final static byte increase = 2;
 
-import java.util.Comparator;
-import java.util.Collections;
+import java.util.*;
 
 int tidslinjeX1 = 1400;
 int tidslinjeY = 450;
@@ -12,9 +11,9 @@ int y1_1=450;
 int y2_1 = 400;
 PFont myFont;
 
-
-
 ArrayList<event> events;
+
+
 
 void setup() {
   size(1600, 600); //(1600, 900)
@@ -33,12 +32,12 @@ void setup() {
   events.add(new event(new StringList("Krig"), 1914, 1918));//firstVK
   events.add(new event(new StringList("Terror", "USA"), 2001, 2001));//twintowers
   events.add(new event(new StringList("Kvinder", "Stemmeret"), 1915, 1915));//kvindeStem
-  events.add(new event(new StringList("Politik"), 1933, 1933));//Kanslergade
-  events.add(new event(new StringList("Politik"), 1973, 1973));//DKEF
+  events.add(new event(new StringList("Politik", "Danmark", "Økonomi"), 1933, 1933));//Kanslergade
+  events.add(new event(new StringList("Politik", "Danmark", "Europa", "økonomi"), 1973, 1973));//DKEF
 
   println ("Before sorting");
   for (event e : events) {
-    println(e.x1);
+    println(e.tags);
   }
 
   Collections.sort(events);
@@ -46,17 +45,17 @@ void setup() {
   println(" ");
   println("After sorting");
   for (event e : events) {
-    println(e.x1);
+    println(e.tags);
   }
-  
+
   int total = events.size();
   println(total);
-  println(events);
+  //println(events);
 }
 
 
 void draw() {
-
+  
   stroke(255, 66, 86);
   strokeWeight(1);
   line (tidslinjeX1, tidslinjeY, tidslinjeX2, tidslinjeY); 
@@ -71,17 +70,19 @@ void draw() {
   event kvindeStem = new event(new StringList("Kvinder", "Stemmeret"), 1915, 1915);//340, 340);
   kvindeStem.tegnEvent();
 
-  event Kanslergade = new event(new StringList("Politik"), 1933, 1933);//520, 520);
+  event Kanslergade = new event(new StringList("Politik", "Danmark", "Økonomi"), 1933, 1933);//520, 520);
   Kanslergade.tegnEvent();
 
   event andenVK = new event(new StringList("Krig", "Nazisme"), 1940, 1945);//590.0, 640.0);
   andenVK.tegnEvent();
 
-  event DKEF = new event(new StringList("Politik", "Økonimi"), 1973, 1973);//920, 920);
+  event DKEF = new event(new StringList("Politik", "Økonimi", "Danmark", "Europa"), 1973, 1973);//920, 920);
   DKEF.tegnEvent();
 
   event twintowers = new event(new StringList("Terror", "USA"), 2001, 2001);//1200, 1200);
   twintowers.tegnEvent();
+  
+
 
   //knap nyKnap = new knap (100, 100);
   //nyKnap.tegnKnap();
@@ -91,6 +92,7 @@ void draw() {
     event e = events.get(0);
     e.tegnEvent();
   }
+  
 }
 
 

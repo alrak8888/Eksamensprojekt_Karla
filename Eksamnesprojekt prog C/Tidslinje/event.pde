@@ -20,19 +20,8 @@ class event implements Comparable<event> {
     return this.x1 - other.x1;
   }
 
-
-  //StringList getStr() {
-  //return str;
-  //}
-
-
-  //class tagComparator implements Comparator {
-  //int compare(event o1, event o2) {
-  //StringList str1 = ((event) o1).getStr();
-  //StringList str2 = ((event) o2).getStr();
-  //return str1.compareTo(str2);
-  //}
-  //}
+//String item = tags.get(2);
+ 
 
   void tegnEvent() {
     //strokeWeight(8);
@@ -47,6 +36,6 @@ class event implements Comparable<event> {
     //fill(colours[index], 100);
     rect(x1, y1, x4, y2);
     fill(255);
-    //text("2. Verdenskrig", x1+10, x3+10);
+    //text("2. Verdenskrig", x1+10, x3+10)
   }
 }
