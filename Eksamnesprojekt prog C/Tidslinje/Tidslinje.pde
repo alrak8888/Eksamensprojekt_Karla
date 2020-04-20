@@ -68,19 +68,19 @@ void draw() {
   //firstVK.tegnEvent();
 
   event kvindeStem = new event(new StringList("Kvinder", "Stemmeret"), 1915, 1915);//340, 340);
-  kvindeStem.tegnEvent();
+  //kvindeStem.tegnEvent();
 
   event Kanslergade = new event(new StringList("Politik", "Danmark", "Økonomi"), 1933, 1933);//520, 520);
-  Kanslergade.tegnEvent();
+  //Kanslergade.tegnEvent();
 
   event andenVK = new event(new StringList("Krig", "Nazisme"), 1940, 1945);//590.0, 640.0);
-  andenVK.tegnEvent();
+  //andenVK.tegnEvent();
 
   event DKEF = new event(new StringList("Politik", "Økonimi", "Danmark", "Europa"), 1973, 1973);//920, 920);
-  DKEF.tegnEvent();
+  //DKEF.tegnEvent();
 
   event twintowers = new event(new StringList("Terror", "USA"), 2001, 2001);//1200, 1200);
-  twintowers.tegnEvent();
+  //twintowers.tegnEvent();
 
 
 
@@ -89,15 +89,19 @@ void draw() {
 
 
   //if (mousePressed) { 
-    //event e = events.get(0);
-    //e.tegnEvent();
+  //event e = events.get(0);
+  //e.tegnEvent();
   //}
 
   for (event i : events) {
-    
-    if (mousePressed
 
+    if (mousePressed) { //knap "krig"
+      if (i.tags.hasValue("Krig")||i.tags.hasValue("Politik")) {
+        println("haha");
+        i.tegnEvent();
+      }
     }
+  }
 }
 
 
@@ -109,6 +113,4 @@ void draw() {
 
 
 
-
-
-  //til zoom brug måske translate
+//til zoom brug måske translate
