@@ -13,7 +13,7 @@ PFont myFont;
 
 ArrayList<event> events;
 
-
+StringList firstVK_tags;
 
 void setup() {
   size(1600, 600); //(1600, 900)
@@ -55,7 +55,7 @@ void setup() {
 
 
 void draw() {
-  
+
   stroke(255, 66, 86);
   strokeWeight(1);
   line (tidslinjeX1, tidslinjeY, tidslinjeX2, tidslinjeY); 
@@ -64,7 +64,7 @@ void draw() {
   text("2020", tidslinjeX1+50, tidslinjeY);
 
   //Begivenheder. Udregning af årstal i pixels: (år fra 1900 - 1)*10 + 200 fx. 1945 (1945-1901)*10+200 = 640
-  event firstVK = new event(new StringList("Krig"), 1914, 1918);
+  event firstVK = new event(firstVK_tags = new StringList ("Krig"), 1914, 1918);
   //firstVK.tegnEvent();
 
   event kvindeStem = new event(new StringList("Kvinder", "Stemmeret"), 1915, 1915);//340, 340);
@@ -81,18 +81,23 @@ void draw() {
 
   event twintowers = new event(new StringList("Terror", "USA"), 2001, 2001);//1200, 1200);
   twintowers.tegnEvent();
-  
+
 
 
   //knap nyKnap = new knap (100, 100);
   //nyKnap.tegnKnap();
 
 
-  if (mousePressed) { 
-    event e = events.get(0);
-    e.tegnEvent();
-  }
-  
+  //if (mousePressed) { 
+    //event e = events.get(0);
+    //e.tegnEvent();
+  //}
+
+  for (event i : events) {
+    
+    if (mousePressed
+
+    }
 }
 
 
@@ -106,7 +111,4 @@ void draw() {
 
 
 
-
-
-
-//til zoom brug måske translate
+  //til zoom brug måske translate
