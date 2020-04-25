@@ -1,41 +1,60 @@
 
 
-int rectX, rectY;
-int rectSize =90;
-color rectColor, baseColor;
-color currentColor;
-boolean rectOver = false;
-
 class knap {
-  float x1, y1;
+  int rectX, rectY;      // Position of square button
+  int rectSizeX, rectSizeY;          // Diameter of rect
+  //color rectColor, baseColor;
+  //color rectHighlight, pressColor;
+  String navn;
+  // color currentColor;
 
-  knap (int rectX, int rectY) {
-    x1=rectX;
-    y1=rectY;
-  }
-  void tegnKnap() {
-    update (mouseX, mouseY);
-    //background(currentColor);
-    rect (rectX, rectY, rectSize, rectSize);
+  //rectColor = color(0);
+  //rectHighlight = color(51);
+  //rectX = width/2-rectSize-10;
+  //rectY = height/2-rectSize/2;
+
+  knap (int _rectX, int  _rectY, int _rectSizeX, int _rectSizeY, String _navn) {
+    this.rectX=_rectX;
+    this.rectY=_rectY;
+    this.rectSizeX=_rectSizeX;
+    this.rectSizeY=_rectSizeY;
+    this.navn=_navn;
   }
 
-  void update (int x, int y) {
-    if (overRect(rectX, rectY, rectSize, rectSize)) {
+  void update(int x, int y) {
+
+    if ( overRect(rectX, rectY, rectSizeX, rectSizeY) ) {
       rectOver = true;
-    }
-  }
-  void mousePressed() {
-    if (rectOver) {
-      currentColor = rectColor;
+    } else {
+      rectOver = false;
     }
   }
 
-  boolean overRect (int x, int y, int width, int height) {
+  boolean overRect(int x, int y, int width, int height) {
     if (mouseX >= x && mouseX <= x+width && 
       mouseY >= y && mouseY <= y+height) {
       return true;
     } else {
       return false;
     }
+  }
+
+  void tegnKnap() {
+    update(mouseX, mouseY);
+
+    if (rectOver) {
+      fill(rectHighlight);
+    } else {
+      fill(rectColor);
+    }
+    //tegne knapperne
+    stroke(255);
+    rectMode(CORNER);
+    rect(rectX, rectY, rectSizeX, rectSizeY);
+
+    //navn på kanpperne
+    fill(255);
+    textAlign(CENTER);
+    text(navn, rectX+(rectSizeX/2), rectY+(rectSizeY/2));
   }
 }

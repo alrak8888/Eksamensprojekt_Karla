@@ -1,11 +1,9 @@
 class event implements Comparable<event> {
   StringList tags;
   int x1, y1, x2, y2, x3, y3, x4, y4;
-  
+  String title;
 
-
-
-  event (StringList _tags, int x, int z) {
+  event (String _title, StringList _tags, int x, int z) {
     this.x1=x=(x-1901)*10+200;
     this.y1=y1_1;
     this.x2=x1;
@@ -15,6 +13,7 @@ class event implements Comparable<event> {
     this.x4=x3;
     this.y4=y2_1;
     this.tags=_tags;
+    this.title=_title;
   }
 
   @Override 
@@ -22,8 +21,6 @@ class event implements Comparable<event> {
     return this.x1 - other.x1;
   }
 
-//String item = tags.get(2);
- 
 
   void tegnEvent() {
     //strokeWeight(8);
