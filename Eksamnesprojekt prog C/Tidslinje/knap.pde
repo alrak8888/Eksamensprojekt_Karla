@@ -54,7 +54,7 @@ class knap {
 
     //navn på kanpperne
     fill(255);
-    textAlign(CENTER);
-    text(navn, rectX+(rectSizeX/2), rectY+(rectSizeY/2));
+    textAlign(CENTER, CENTER);
+    text(navn, rectX+(rectSizeX/2), rectY+(rectSizeY/2)-3);
   }
 }

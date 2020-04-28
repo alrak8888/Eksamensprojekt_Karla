@@ -1,4 +1,5 @@
-class event implements Comparable<event> {
+//Det her er den klasse, der laver alle events
+class event implements Comparable<event> { //comparable er med sådan at eventsne kan sammenlignes med hinanden og dermed sorteres
   StringList tags;
   int x1, y1, x2, y2, x3, y3, x4, y4;
   String title;
@@ -16,6 +17,7 @@ class event implements Comparable<event> {
     this.title=_title;
   }
 
+  //Sortering og sammenligning
   @Override 
     int compareTo(event other) {
     return this.x1 - other.x1;
@@ -29,12 +31,12 @@ class event implements Comparable<event> {
     line(x3, y1, x4, y2);
     rectMode(CORNERS);
     noStroke();
-    fill(255, 100, 49, 100);
+    fill(255, 100, 49, 100); //den orange farve
     //int [] colours = {#A01D1D, #68C674, 0, 255};
     //int index = int(random(colours.length));
     //fill(colours[index], 100);
     rect(x1, y1, x4, y2);
-    fill(255);
+    //fill(255);
     //text("2. Verdenskrig", x1+10, x3+10)
   }
 }
