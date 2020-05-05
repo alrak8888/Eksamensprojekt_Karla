@@ -1,8 +1,8 @@
-
+/*
 
 class knap {
-  int rectX, rectY;      // Position of square button
-  int rectSizeX, rectSizeY;          // Diameter of rect
+  int krigX, krigY;      // Position of square button
+  int krigSizeX, krigSizeY;          // Diameter of rect
   //color rectColor, baseColor;
   //color rectHighlight, pressColor;
   String navn;
@@ -21,14 +21,7 @@ class knap {
     this.navn=_navn;
   }
 
-  void update(int x, int y) {
-
-    if ( overRect(rectX, rectY, rectSizeX, rectSizeY) ) {
-      rectOver = true;
-    } else {
-      rectOver = false;
-    }
-  }
+  
 
   boolean overRect(int x, int y, int width, int height) {
     if (mouseX >= x && mouseX <= x+width && 
@@ -58,3 +51,4 @@ class knap {
     text(navn, rectX+(rectSizeX/2), rectY+(rectSizeY/2)-3);
   }
 }
+*/

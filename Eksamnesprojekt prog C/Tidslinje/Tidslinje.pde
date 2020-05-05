@@ -20,12 +20,47 @@ PFont myFont;
 
 ArrayList<event> events;
 
-boolean rectOver = false; //Handler om knapperne
+//krig
+int krigX, krigY;      // Position of square button
+boolean krigOver = false; //Handler om knapperne
+color krigColor=0;
+color krigHighlight=#F29D14;
+String krig = "Krig";
 
-//Farver til knapper:
+//politik
+int polX, polY;
+boolean polOver = false;
+color polColor=0;
+color polHighlight=#F29D14;
+String pol="Politik";
+
+//Nazisme
+int nazX, nazY;
+boolean nazOver = false;
+color nazColor=0;
+color nazHighlight=#F29D14;
+String naz = "Nazisme";
+
+//Terror
+int terX, terY;
+boolean terOver = false;
+color terColor =0;
+color terHighlight=#F29D14;
+String ter = "Terror";
+
+//kvinder
+int kviX, kviY;
+boolean kviOver = false;
+color kviColor =0;
+color kviHighlight=#F29D14;
+String kvi = "Kvinder";
+
+
+int SizeX = 30;
+int SizeY= 30; 
+int round = 7;// Diameter of rect
+
 color pressColor=#F29D14;
-color rectColor=0;
-color rectHighlight=#F29D14;
 
 void setup() {
   size(1600, 600); //(1600, 900)
@@ -70,11 +105,12 @@ void setup() {
 
 
 void draw() {
+
   background(0);
 
   pushMatrix();
-
   zoomer.transform();
+
   //Her tegnes selve tidslinjen
   stroke(255, 66, 86);
   strokeWeight(1);
@@ -84,11 +120,26 @@ void draw() {
   text("1901", tidslinjeX1-50, tidslinjeY);
   text("2020", tidslinjeX2+50, tidslinjeY);
 
+  krigX=1450;
+  krigY= 50;
+
+  polX=krigX;
+  polY=krigY+50;
+
+  nazX=krigX;
+  nazY=polY+50;
+
+  terX=krigX;
+  terY=nazY+50;
+
+  kviX=krigX;
+  kviY=terY+50;
+
   //Begivenheder. Udregning af årstal i pixels: (år - 1901)*10 + 200 fx. 1945 = (1945-1901)*10+200 = 640
   event firstVK = new event("Første Verdenskrig", new StringList ("Krig"), 1914, 1918);
   //firstVK.tegnEvent();
 
-  event kvindeStem = new event("Kvinders stemmeret", new StringList("Kvinder", "Stemmeret"), 1915, 1915);//340, 340);
+  event kvindeStem = new event("Kvinders stemmeret", new StringList("Kvinder", "Stemmeret", "Danmark"), 1915, 1915);//340, 340);
   //kvindeStem.tegnEvent();
 
   event Kanslergade = new event("Kanslergadeforliget", new StringList("Politik", "Danmark", "Økonomi"), 1933, 1933);//520, 520);
@@ -104,48 +155,209 @@ void draw() {
   //twintowers.tegnEvent();
 
   popMatrix();
-  //Knapper:
-  knap krig = new knap(1500, 50, 90, 30, "Krig");//Knap der udvælger de events der omhandler krig
-  krig.tegnKnap();
 
-  pushMatrix();
+  update(mouseX, mouseY);
+  //pushMatrix();
+  if (krigOver) {
+    fill(krigHighlight);
+  } else {
+    fill(krigColor);
+  }
+  rectMode(CORNER);
+  rect(krigX, krigY, SizeX, SizeY, round);
+  fill(255);
+  textAlign(CORNER, CENTER);
+  text(krig, krigX+40, krigY+(SizeY/2)-3);
 
-  zoomer.transform();
+  if (polOver) {
+    fill(polHighlight);
+  } else {
+    fill(polColor);
+  }
+  rectMode(CORNER);
+  rect(polX, polY, SizeX, SizeY, round);
+  fill(255);
+  textAlign(CORNER, CENTER);
+  text(pol, polX+40, polY+(SizeY/2)-3);
 
-  //Hvad der sker hvis knap "krig" trykkes på
+  if (nazOver) {
+    fill(nazHighlight);
+  } else {
+    fill(nazColor);
+  }
+  rectMode(CORNER);
+  rect(nazX, nazY, SizeX, SizeY, round);
+  fill(255);
+  textAlign(CORNER, CENTER);
+  text(naz, nazX+40, nazY+(SizeY/2)-3);
+
+  if (terOver) {
+    fill(terHighlight);
+  } else {
+    fill(terColor);
+  }
+  rectMode(CORNER);
+  rect(terX, terY, SizeX, SizeY, round);
+  fill(255);
+  textAlign(CORNER, CENTER);
+  text(ter, terX+40, terY+(SizeY/2)-3);
+
+  if (kviOver) {
+    fill(kviHighlight);
+  } else {
+    fill(kviColor);
+  }
+  rectMode(CORNER);
+  rect(kviX, kviY, SizeX, SizeY, round);
+  fill(255);
+  textAlign(CORNER, CENTER);
+  text(kvi, kviX+40, kviY+(SizeY/2)-3);
+}
+
+void update(int x, int y) {
+  if ( overKrig(krigX, krigY, SizeX, SizeY) ) {
+    krigOver = true;
+    polOver= false;
+    nazOver=false;
+    terOver=false;
+    kviOver=false;
+  } else if ( overPol(polX, polY, SizeX, SizeY) ) {
+    polOver = true;
+    krigOver=false;
+    nazOver=false;
+    terOver=false;
+    kviOver=false;
+  } else if (overNaz(nazX, nazY, SizeX, SizeY)) {
+    nazOver=true;
+    krigOver=false;
+    polOver=false;
+    terOver=false;
+    kviOver=false;
+  } else if (overTer(terX, terY, SizeX, SizeY)) {
+    nazOver=false;
+    krigOver=false;
+    polOver=false;
+    terOver=true;
+    kviOver=false;
+  } else if (overKvi(kviX, kviY, SizeX, SizeY)) {
+    nazOver=false;
+    krigOver=false;
+    polOver=false;
+    terOver=false;
+    kviOver=true;
+  } else {
+    krigOver=polOver=nazOver=terOver=kviOver=false;
+  }
+}
+
+boolean overKrig (int x, int y, int width, int height) {
+  if (mouseX >= x && mouseX <= x+width && 
+    mouseY >= y && mouseY <= y+height) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+boolean overPol (int x, int y, int width, int height) {
+  if (mouseX >= x && mouseX <= x+width && 
+    mouseY >= y && mouseY <= y+height) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+boolean overNaz (int x, int y, int width, int height) {
+  if (mouseX >= x && mouseX <= x+width && 
+    mouseY >= y && mouseY <= y+height) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+boolean overTer (int x, int y, int width, int height) {
+  if (mouseX >= x && mouseX <= x+width && 
+    mouseY >= y && mouseY <= y+height) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+boolean overKvi (int x, int y, int width, int height) {
+  if (mouseX >= x && mouseX <= x+width && 
+    mouseY >= y && mouseY <= y+height) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+
+void mousePressed() {
+  //zoomer.transform();
   for (event i : events) {
 
-    if (mousePressed  && rectOver==true && mouseButton==LEFT) { 
+    if (mousePressed && polOver==true && mouseButton==LEFT) {
+      if (i.tags.hasValue("Politik")) {
+        i.tegnEvent();
+        fill (pressColor);
+        polColor = pressColor;
+        polHighlight=51;
+      }
+    }
+  }
+
+  for (event i : events) {
+
+    if (mousePressed  && krigOver==true && mouseButton==LEFT) { 
       if (i.tags.hasValue("Krig")) { //
         i.tegnEvent();
         fill(pressColor);
-        rectColor=pressColor;
-        rectHighlight=51;
+        krigColor=pressColor;
+        krigHighlight=51;
       }
     }
   }
-  popMatrix();
 
-  knap politik = new knap(1500, 100, 90, 30, "Politik");//Knap der udvælger de events der omhandler politik
-  politik.tegnKnap();
-
-  pushMatrix();
-
-  zoomer.transform();
-
-  //Når kanp "Politik" trykkes på tegnes de events der har tagget politik
   for (event i : events) {
 
-    if (mousePressed && rectOver==true && mouseButton==LEFT) {
-      if (i.tags.hasValue("Politik")) {
+    if (mousePressed  && nazOver==true && mouseButton==LEFT) { 
+      if (i.tags.hasValue("Nazisme")) { //
         i.tegnEvent();
+        fill(pressColor);
+        nazColor=pressColor;
+        nazHighlight=51;
       }
     }
   }
-  popMatrix();
-}
-//Det kunne være fedt hvis man kunne lave det sådan at brugeren selv kunne indtaste nye events, men det er ikke prioritet
 
+  for (event i : events) {
+
+    if (mousePressed  && terOver==true && mouseButton==LEFT) { 
+      if (i.tags.hasValue("Terror")) { //
+        i.tegnEvent();
+        fill(pressColor);
+        terColor=pressColor;
+        terHighlight=51;
+      }
+    }
+  }
+
+  for (event i : events) {
+
+    if (mousePressed  && kviOver==true && mouseButton==LEFT) { 
+      if (i.tags.hasValue("Kvinder")) { //
+        i.tegnEvent();
+        fill(pressColor);
+        kviColor=pressColor;
+        kviHighlight=51;
+      }
+    }
+  }
+}
 
 
 

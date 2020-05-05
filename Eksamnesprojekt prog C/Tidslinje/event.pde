@@ -15,6 +15,10 @@ class event implements Comparable<event> { //comparable er med sådan at eventsn
     this.y4=y2_1;
     this.tags=_tags;
     this.title=_title;
+    
+    if (x==z){
+      y2=y2-30;
+    }
   }
 
   //Sortering og sammenligning
@@ -36,7 +40,8 @@ class event implements Comparable<event> { //comparable er med sådan at eventsn
     //int index = int(random(colours.length));
     //fill(colours[index], 100);
     rect(x1, y1, x4, y2);
-    //fill(255);
-    //text("2. Verdenskrig", x1+10, x3+10)
+    fill(255);
+    textAlign(CENTER,CENTER);
+    text(title, x2+((x4-x2)/2), y2-15);
   }
 }
