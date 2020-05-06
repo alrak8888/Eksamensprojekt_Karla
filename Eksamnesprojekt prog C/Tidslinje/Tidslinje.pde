@@ -160,7 +160,7 @@ void draw() {
    event twintowers = new event("9/11", new StringList("Terror", "USA"), 2001, 2001);//1200, 1200);
    //twintowers.tegnEvent();
    */
-  popMatrix();
+popMatrix();
 
   update(mouseX, mouseY);
   //pushMatrix();
@@ -220,6 +220,7 @@ void draw() {
   textAlign(CORNER, CENTER);
   text(kvi, kviX+40, kviY+(SizeY/2)-3);
 }
+
 
 void update(int x, int y) {
   if ( overKrig(krigX, krigY, SizeX, SizeY) ) {
@@ -319,7 +320,7 @@ boolean overKvi (int x, int y, int width, int height) {
 
 
 void mousePressed() {
-  //zoomer.transform();
+  zoomer.transform();
 
   //INFO
   if (mousePressed && ToVKover==true && mouseButton==LEFT) {
