@@ -15,8 +15,8 @@ class event implements Comparable<event> { //comparable er med sådan at eventsn
     this.y4=y2_1;
     this.tags=_tags;
     this.title=_title;
-    
-    if (x==z){
+
+    if (x==z) {
       y2=y2-30;
     }
   }
@@ -29,19 +29,15 @@ class event implements Comparable<event> { //comparable er med sådan at eventsn
 
 
   void tegnEvent() {
-    //strokeWeight(8);
     stroke(255);
     line (x1, y1, x2, y2);
     line(x3, y1, x4, y2);
     rectMode(CORNERS);
     noStroke();
     fill(255, 100, 49, 100); //den orange farve
-    //int [] colours = {#A01D1D, #68C674, 0, 255};
-    //int index = int(random(colours.length));
-    //fill(colours[index], 100);
     rect(x1, y1, x4, y2);
     fill(255);
-    textAlign(CENTER,CENTER);
+    textAlign(CENTER, CENTER);
     text(title, x2+((x4-x2)/2), y2-15);
   }
 }

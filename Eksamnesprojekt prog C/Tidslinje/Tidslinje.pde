@@ -20,6 +20,8 @@ PFont myFont;
 
 ArrayList<event> events;
 
+boolean ToVKover = false;
+
 //krig
 int krigX, krigY;      // Position of square button
 boolean krigOver = false; //Handler om knapperne
@@ -95,7 +97,7 @@ void setup() {
   println(" ");
   println("After sorting");
   for (event e : events) {
-    println(e.tags);
+    println(e.x1);
   }
 
   int total = events.size();
@@ -135,29 +137,34 @@ void draw() {
   kviX=krigX;
   kviY=terY+50;
 
+  for (event e : events) {
+    //e.tegnEvent();
+  }
+  /*
   //Begivenheder. Udregning af årstal i pixels: (år - 1901)*10 + 200 fx. 1945 = (1945-1901)*10+200 = 640
-  event firstVK = new event("Første Verdenskrig", new StringList ("Krig"), 1914, 1918);
-  //firstVK.tegnEvent();
-
-  event kvindeStem = new event("Kvinders stemmeret", new StringList("Kvinder", "Stemmeret", "Danmark"), 1915, 1915);//340, 340);
-  //kvindeStem.tegnEvent();
-
-  event Kanslergade = new event("Kanslergadeforliget", new StringList("Politik", "Danmark", "Økonomi"), 1933, 1933);//520, 520);
-  //Kanslergade.tegnEvent();
-
-  event andenVK = new event("Anden Verdenskrig", new StringList("Krig", "Nazisme"), 1940, 1945);//590.0, 640.0);
-  //andenVK.tegnEvent();
-
-  event DKEF = new event("Danmark bliver medlem af EF", new StringList("Politik", "Økonimi", "Danmark", "Europa"), 1973, 1973);//920, 920);
-  //DKEF.tegnEvent();
-
-  event twintowers = new event("9/11", new StringList("Terror", "USA"), 2001, 2001);//1200, 1200);
-  //twintowers.tegnEvent();
-
+   event firstVK = new event("Første Verdenskrig", new StringList ("Krig"), 1914, 1918);
+   //firstVK.tegnEvent();
+   
+   event kvindeStem = new event("Kvinders stemmeret", new StringList("Kvinder", "Stemmeret", "Danmark"), 1915, 1915);//340, 340);
+   //kvindeStem.tegnEvent();
+   
+   event Kanslergade = new event("Kanslergadeforliget", new StringList("Politik", "Danmark", "Økonomi"), 1933, 1933);//520, 520);
+   //Kanslergade.tegnEvent();
+   
+   event andenVK = new event("Anden Verdenskrig", new StringList("Krig", "Nazisme"), 1940, 1945);//590.0, 640.0);
+   //andenVK.tegnEvent();
+   
+   event DKEF = new event("Danmark bliver medlem af EF", new StringList("Politik", "Økonimi", "Danmark", "Europa"), 1973, 1973);//920, 920);
+   //DKEF.tegnEvent();
+   
+   event twintowers = new event("9/11", new StringList("Terror", "USA"), 2001, 2001);//1200, 1200);
+   //twintowers.tegnEvent();
+   */
   popMatrix();
 
   update(mouseX, mouseY);
   //pushMatrix();
+
   if (krigOver) {
     fill(krigHighlight);
   } else {
@@ -245,11 +252,26 @@ void update(int x, int y) {
     polOver=false;
     terOver=false;
     kviOver=true;
+  } else if (overToVK(events.get(3).x1, events.get(3).x3, events.get(3).y2, events.get(3).y1)) {
+    ToVKover=true;
+    nazOver=false;
+    krigOver=false;
+    polOver=false;
+    terOver=false;
+    kviOver=false;
   } else {
-    krigOver=polOver=nazOver=terOver=kviOver=false;
+    krigOver=polOver=nazOver=terOver=kviOver=ToVKover=false;
   }
 }
 
+boolean overToVK (int x, int y, int z, int q) {
+  if (mouseX >= x && mouseX <= y && 
+    mouseY >= z && mouseY <= q) {
+    return true;
+  } else {
+    return false;
+  }
+}
 boolean overKrig (int x, int y, int width, int height) {
   if (mouseX >= x && mouseX <= x+width && 
     mouseY >= y && mouseY <= y+height) {
@@ -298,6 +320,16 @@ boolean overKvi (int x, int y, int width, int height) {
 
 void mousePressed() {
   //zoomer.transform();
+
+  //INFO
+  if (mousePressed && ToVKover==true && mouseButton==LEFT) {
+    info VKTO = new info(loadStrings("AndenVK.txt"), events.get(3).x2+((events.get(3).x4-events.get(3).x2)/2), events.get(3).y1);
+    VKTO.tegnInfo();
+    println("WOW");
+  }
+
+
+  //Events og knapper
   for (event i : events) {
 
     if (mousePressed && polOver==true && mouseButton==LEFT) {
@@ -308,9 +340,9 @@ void mousePressed() {
         polHighlight=51;
       }
     }
-  }
+    //}
 
-  for (event i : events) {
+    //for (event i : events) {
 
     if (mousePressed  && krigOver==true && mouseButton==LEFT) { 
       if (i.tags.hasValue("Krig")) { //
@@ -320,9 +352,19 @@ void mousePressed() {
         krigHighlight=51;
       }
     }
-  }
+    /*
+    if (mousePressed && krigOver==true && mouseButton==LEFT && krigHighlight==51) {
+     if (i.tags.hasValue("Krig")) { //
+     i.y2=y2_1+y2_1;
+     //i.x2=100;
+     krigHighlight=255;
+     println("WOW");
+     }
+     }
+     */
+    // }
 
-  for (event i : events) {
+    //for (event i : events) {
 
     if (mousePressed  && nazOver==true && mouseButton==LEFT) { 
       if (i.tags.hasValue("Nazisme")) { //
@@ -332,9 +374,9 @@ void mousePressed() {
         nazHighlight=51;
       }
     }
-  }
+    //}
 
-  for (event i : events) {
+    //for (event i : events) {
 
     if (mousePressed  && terOver==true && mouseButton==LEFT) { 
       if (i.tags.hasValue("Terror")) { //
