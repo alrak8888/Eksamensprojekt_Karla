@@ -20,7 +20,18 @@ PFont myFont;
 
 ArrayList<event> events;
 
-boolean ToVKover = false;
+//Info
+boolean ToVKover = false; //1. verdenskirg
+boolean ToVKKlik;
+
+boolean EnVKover = false; //2. verdenskrig 
+boolean EnVKKlik;
+
+boolean kansOver = false; //Kanslergadeforliget
+boolean kansKlik;
+
+boolean KSover = false; //kvindernes stemmeret
+boolean KSklik;
 
 //krig
 int krigX, krigY;      // Position of square button
@@ -28,6 +39,7 @@ boolean krigOver = false; //Handler om knapperne
 color krigColor=0;
 color krigHighlight=#F29D14;
 String krig = "Krig";
+boolean krigKlik;
 
 //politik
 int polX, polY;
@@ -35,6 +47,7 @@ boolean polOver = false;
 color polColor=0;
 color polHighlight=#F29D14;
 String pol="Politik";
+boolean polKlik;
 
 //Nazisme
 int nazX, nazY;
@@ -42,6 +55,7 @@ boolean nazOver = false;
 color nazColor=0;
 color nazHighlight=#F29D14;
 String naz = "Nazisme";
+boolean nazKlik;
 
 //Terror
 int terX, terY;
@@ -49,6 +63,7 @@ boolean terOver = false;
 color terColor =0;
 color terHighlight=#F29D14;
 String ter = "Terror";
+boolean terKlik;
 
 //kvinder
 int kviX, kviY;
@@ -56,6 +71,7 @@ boolean kviOver = false;
 color kviColor =0;
 color kviHighlight=#F29D14;
 String kvi = "Kvinder";
+boolean kviKlik;
 
 
 int SizeX = 30;
@@ -67,9 +83,6 @@ color pressColor=#F29D14;
 void setup() {
   size(1600, 600); //(1600, 900)
   smooth();
-  background(0);
-  //String[] fontList = PFont.list();
-  //printArray(fontList);
   myFont = createFont("trebuchet ms", 15); //"terminator two" fonten er god. "Trebuchet ms fed" er også fin. 
   textFont(myFont);
 
@@ -89,7 +102,7 @@ void setup() {
   //Her sorteres sådan at de står i den rækkefølge som de er i i arrayet. Det her kode bruges egentlig ikke til noget, men man kan ses at programmet virker, hvis disse ting sker
   println ("Before sorting");
   for (event e : events) {
-    println(e.tags);
+    println(e.title);
   }
 
   Collections.sort(events);
@@ -97,12 +110,13 @@ void setup() {
   println(" ");
   println("After sorting");
   for (event e : events) {
-    println(e.x1);
+    println(e.title);
   }
 
   int total = events.size();
   println(total);
   //println(events);
+  //noLoop();
 }
 
 
@@ -121,6 +135,7 @@ void draw() {
   //Her tegnes teksten i enderne
   text("1901", tidslinjeX1-50, tidslinjeY);
   text("2020", tidslinjeX2+50, tidslinjeY);
+
 
   krigX=1450;
   krigY= 50;
@@ -160,10 +175,9 @@ void draw() {
    event twintowers = new event("9/11", new StringList("Terror", "USA"), 2001, 2001);//1200, 1200);
    //twintowers.tegnEvent();
    */
-popMatrix();
+  popMatrix();
 
   update(mouseX, mouseY);
-  //pushMatrix();
 
   if (krigOver) {
     fill(krigHighlight);
@@ -219,6 +233,113 @@ popMatrix();
   fill(255);
   textAlign(CORNER, CENTER);
   text(kvi, kviX+40, kviY+(SizeY/2)-3);
+
+  pushMatrix();
+  zoomer.transform();
+
+
+  //KNAPPERNE:
+  for (event i : events) {
+
+    //knap krig
+    //tegn:
+    if (krigKlik) {
+      if (i.tags.hasValue("Krig")) { //
+        i.tegnEvent();
+        fill(pressColor);
+        krigColor=pressColor;
+        krigHighlight=51;
+      }
+    }
+    //remove:
+    if (krigKlik==false && ToVKKlik==false) {
+      krigHighlight=#F29D14;
+      krigColor=0;
+    }
+    //Info:
+    if (ToVKKlik) {
+      info VKTO = new info(loadStrings("AndenVK.txt"), events.get(3).x2+((events.get(3).x4-events.get(3).x2)/2), events.get(3).y1);
+      VKTO.tegnInfo();
+    }
+
+    //Info:
+    if (EnVKKlik) {
+      info VKEN = new info(loadStrings("firstVK.txt"), events.get(0).x2+((events.get(0).x4-events.get(0).x2)/2), events.get(0).y1);
+      VKEN.tegnInfo();
+    }
+
+    //knap politik
+    if (polKlik) {
+      if (i.tags.hasValue("Politik")) {
+        //noLoop();
+        i.tegnEvent();
+        fill (pressColor);
+        polColor = pressColor;
+        polHighlight=51;
+      }
+    }
+    //remove
+    if (polKlik==false) {
+      polHighlight=#F29D14;
+      polColor=0;
+    }
+    //INFO
+    if (kansKlik) {
+      info kans = new info(loadStrings("Kansler.txt"), events.get(2).x2+((events.get(2).x4-events.get(2).x2)/2), events.get(2).y1);
+      kans.tegnInfo();
+    }
+
+
+    //knap nazisme
+    if (nazKlik) {
+      if (i.tags.hasValue("Nazisme")) { //
+        i.tegnEvent();
+        fill(pressColor);
+        nazColor=pressColor;
+        nazHighlight=51;
+      }
+    }
+    //remove
+    if (nazKlik==false) {
+      nazHighlight=#F29D14;
+      nazColor=0;
+    }
+    //knap terror
+    if (terKlik) {
+      if (i.tags.hasValue("Terror")) { //
+        i.tegnEvent();
+        fill(pressColor);
+        terColor=pressColor;
+        terHighlight=51;
+      }
+    }
+    //remove
+    if (terKlik==false) {
+      terHighlight=#F29D14;
+      terColor=0;
+    }
+
+    //knap kvinder
+    if (kviKlik) {
+      if (i.tags.hasValue("Kvinder")) { //
+        i.tegnEvent();
+        fill(pressColor);
+        kviColor=pressColor;
+        kviHighlight=51;
+      }
+    }
+    //remove
+    if (kviKlik==false) {
+      kviHighlight=#F29D14;
+      kviColor=0;
+    }
+    //INFO
+    if (KSklik) {
+      info KS = new info(loadStrings("kvinder.txt"), events.get(1).x2+((events.get(1).x4-events.get(1).x2)/2), events.get(1).y1);
+      KS.tegnInfo();
+    }
+  }
+  popMatrix();
 }
 
 
@@ -253,6 +374,8 @@ void update(int x, int y) {
     polOver=false;
     terOver=false;
     kviOver=true;
+
+    //INFO:
   } else if (overToVK(events.get(3).x1, events.get(3).x3, events.get(3).y2, events.get(3).y1)) {
     ToVKover=true;
     nazOver=false;
@@ -260,11 +383,39 @@ void update(int x, int y) {
     polOver=false;
     terOver=false;
     kviOver=false;
+  } else if (overEnVK(events.get(0).x1, events.get(0).x3, events.get(0).y2, events.get(0).y1)) {
+    EnVKover=true;
+    ToVKover=false;
+    nazOver=false;
+    krigOver=false;
+    polOver=false;
+    terOver=false;
+    kviOver=false;
+  } else if (overKans(events.get(2).x1-10, events.get(2).x3+10, events.get(2).y2, events.get(2).y1)) {
+    kansOver=true;
+    EnVKover=false;
+    ToVKover=false;
+    nazOver=false;
+    krigOver=false;
+    polOver=false;
+    terOver=false;
+    kviOver=false;
+  } else if (overKS(events.get(1).x1-10, events.get(1).x3+10, events.get(1).y2, events.get(1).y1)) {
+    KSover=true;
+    kansOver=false;
+    EnVKover=false;
+    ToVKover=false;
+    nazOver=false;
+    krigOver=false;
+    polOver=false;
+    terOver=false;
+    kviOver=false;
   } else {
-    krigOver=polOver=nazOver=terOver=kviOver=ToVKover=false;
+    krigOver=polOver=nazOver=terOver=kviOver=ToVKover=EnVKover=kansOver= KSover=false;
   }
 }
 
+//INFO:
 boolean overToVK (int x, int y, int z, int q) {
   if (mouseX >= x && mouseX <= y && 
     mouseY >= z && mouseY <= q) {
@@ -273,6 +424,35 @@ boolean overToVK (int x, int y, int z, int q) {
     return false;
   }
 }
+
+boolean overEnVK (int x, int y, int z, int q) {
+  if (mouseX >= x && mouseX <= y && 
+    mouseY >= z && mouseY <= q) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+boolean overKans (int x, int y, int z, int q) {
+  if (mouseX >= x && mouseX <= y && 
+    mouseY >= z && mouseY <= q) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+boolean overKS (int x, int y, int z, int q) {
+  if (mouseX >= x && mouseX <= y && 
+    mouseY >= z && mouseY <= q) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+//KNAPPER:
 boolean overKrig (int x, int y, int width, int height) {
   if (mouseX >= x && mouseX <= x+width && 
     mouseY >= y && mouseY <= y+height) {
@@ -323,87 +503,73 @@ void mousePressed() {
   zoomer.transform();
 
   //INFO
-  if (mousePressed && ToVKover==true && mouseButton==LEFT) {
-    info VKTO = new info(loadStrings("AndenVK.txt"), events.get(3).x2+((events.get(3).x4-events.get(3).x2)/2), events.get(3).y1);
-    VKTO.tegnInfo();
-    println("WOW");
+  //anden verdenskrig
+  if (ToVKover==true && mouseButton==LEFT) {
+    ToVKKlik = true;
   }
 
-
-  //Events og knapper
-  for (event i : events) {
-
-    if (mousePressed && polOver==true && mouseButton==LEFT) {
-      if (i.tags.hasValue("Politik")) {
-        i.tegnEvent();
-        fill (pressColor);
-        polColor = pressColor;
-        polHighlight=51;
-      }
-    }
-    //}
-
-    //for (event i : events) {
-
-    if (mousePressed  && krigOver==true && mouseButton==LEFT) { 
-      if (i.tags.hasValue("Krig")) { //
-        i.tegnEvent();
-        fill(pressColor);
-        krigColor=pressColor;
-        krigHighlight=51;
-      }
-    }
-    /*
-    if (mousePressed && krigOver==true && mouseButton==LEFT && krigHighlight==51) {
-     if (i.tags.hasValue("Krig")) { //
-     i.y2=y2_1+y2_1;
-     //i.x2=100;
-     krigHighlight=255;
-     println("WOW");
-     }
-     }
-     */
-    // }
-
-    //for (event i : events) {
-
-    if (mousePressed  && nazOver==true && mouseButton==LEFT) { 
-      if (i.tags.hasValue("Nazisme")) { //
-        i.tegnEvent();
-        fill(pressColor);
-        nazColor=pressColor;
-        nazHighlight=51;
-      }
-    }
-    //}
-
-    //for (event i : events) {
-
-    if (mousePressed  && terOver==true && mouseButton==LEFT) { 
-      if (i.tags.hasValue("Terror")) { //
-        i.tegnEvent();
-        fill(pressColor);
-        terColor=pressColor;
-        terHighlight=51;
-      }
-    }
+  //første verdenskrig
+  if (EnVKover==true && mouseButton==LEFT) {
+    EnVKKlik = true;
+  }
+  //kanslergadeforliget
+  if (kansOver==true && mouseButton==LEFT) {
+    kansKlik = true;
   }
 
-  for (event i : events) {
+  //Kvindernes stemmeret
+  if (KSover==true && mouseButton==LEFT) {
+    KSklik = true;
+  }
+  //KNAPPER:
 
-    if (mousePressed  && kviOver==true && mouseButton==LEFT) { 
-      if (i.tags.hasValue("Kvinder")) { //
-        i.tegnEvent();
-        fill(pressColor);
-        kviColor=pressColor;
-        kviHighlight=51;
-      }
-    }
+  //krig
+  if (krigOver==true && mouseButton==LEFT) {// && krigHighlight==#F29D14) { 
+    krigKlik = true;
+  }
+  //remove
+  if (krigOver==true && mouseButton==LEFT && krigHighlight==51) {
+    krigKlik=false;
+    ToVKKlik=false;
+    EnVKKlik=false;
+  }
+
+  //Politik
+  if (polOver==true && mouseButton==LEFT) {
+    polKlik = true;
+  }
+  //remove
+  if (polOver==true && mouseButton==LEFT && polHighlight==51) {
+    polKlik=false;
+    kansKlik=false;
+  }
+
+  //nazisme
+  if (nazOver==true && mouseButton==LEFT) {
+    nazKlik = true;
+  }
+  //remove
+  if (nazOver==true && mouseButton==LEFT && nazHighlight==51) {
+    nazKlik=false;
+  }
+  //terror
+  if (terOver==true && mouseButton==LEFT) { 
+    terKlik = true;
+  }
+  //remove
+  if (terOver==true && mouseButton==LEFT && terHighlight==51) {
+    terKlik=false;
+  }
+  //kvinder
+  if (kviOver==true && mouseButton==LEFT) { 
+    kviKlik = true;
+  }
+  //remove
+  if (kviOver==true && mouseButton==LEFT && kviHighlight==51) {
+    kviKlik=false;
   }
 }
-
-
-
+//redraw();
 
 
 

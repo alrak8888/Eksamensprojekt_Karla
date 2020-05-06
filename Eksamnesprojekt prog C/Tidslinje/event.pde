@@ -3,6 +3,7 @@ class event implements Comparable<event> { //comparable er med sådan at eventsn
   StringList tags;
   int x1, y1, x2, y2, x3, y3, x4, y4;
   String title;
+ 
 
   event (String _title, StringList _tags, int x, int z) {
     this.x1=x=(x-1901)*10+200;
@@ -39,5 +40,6 @@ class event implements Comparable<event> { //comparable er med sådan at eventsn
     fill(255);
     textAlign(CENTER, CENTER);
     text(title, x2+((x4-x2)/2), y2-15);
+    boolean tegnet = true;
   }
 }
