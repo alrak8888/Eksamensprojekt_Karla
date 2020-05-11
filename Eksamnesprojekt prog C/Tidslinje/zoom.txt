@@ -1,0 +1,1 @@
+Zoom by pressing SHIFT and dragging the mouse, while pressing left mouse button. Pan by pressing SHIFT and dragging mouse while pressing right mouse button.
